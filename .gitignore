@@ -1,1 +1,5 @@
-./.idea
+.env
+.idea
+./backend/venv
+./backend/app/data/opei2023.db
+*__pycache__*
