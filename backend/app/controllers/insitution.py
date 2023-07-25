@@ -1,7 +1,7 @@
 from flask import Blueprint, request, abort
 
-from backend.app.business.create_institution import CreateInstitution
-from backend.app.services.rfb import RFBService
+from backend.app.institution.create_institution import CreateInstitution
+from backend.app.rfb_subsystem.rfb import RFBIntegrationSubsystem
 
 controller = Blueprint('institution_controller', __name__, url_prefix='/institution')
 
@@ -19,5 +19,9 @@ def do_create_institution():
     if exists:
         abort(400)
     else:
-        (name, address, isPublic) = RFBService.get_cnpj_exists(cnpj)
-        return CreateInstitution.register_institution(name, address, cnpj, isPublic)
+        (name, address, isPublic) = RFBIntegrationSubsystem.get_cnpj_exists(cnpj)
+        success = CreateInstitution.register_institution(name, address, cnpj, isPublic)
+        if success:
+            return "ok"
+
+        return abort(500)

@@ -2,7 +2,7 @@ import requests
 import os
 
 
-class RFBService:
+class RFBIntegrationSubsystem:
 
     @classmethod
     def get_cnpj_exists(cls, cnpj: str):

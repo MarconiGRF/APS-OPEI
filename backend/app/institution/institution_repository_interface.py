@@ -1,10 +1,10 @@
 from sqlalchemy import select
 
-from backend.app.data.database_setup import DatabaseHelper
-from backend.app.models.institution import Institution
+from backend.app.util.database_setup import DatabaseHelper
+from backend.app.institution.institution_model import Institution
 
 
-class InstitutionRepository:
+class InstitutionRepositoryInterface:
 
     @staticmethod
     def get_institution_exists(cnpj: str) -> bool:

@@ -2,16 +2,16 @@ import os
 
 from sqlalchemy import create_engine, Engine
 from sqlalchemy.orm import Session
-from backend.app.models.delegate import Delegate
-from backend.app.models.institution import Institution
+from backend.app.delegate.delegate_model import Delegate
+from backend.app.institution.institution_model import Institution
 
 
 class DatabaseHelper:
-    __db_path = f'{os.getcwd()}/app/data/opei2023.db'
+    __db_path = f'{os.getcwd()}/app/repositories/opei2023.db'
 
     @classmethod
     def get_engine(cls) -> Engine:
-        return create_engine(f'sqlite:///{cls.__db_path}', echo=True)
+        return create_engine(f'sqlite:///{cls.__db_path}')
 
     @classmethod
     def create_tables(cls) -> None:
