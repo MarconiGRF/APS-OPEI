@@ -1,5 +1,5 @@
-from backend.app.institution.institution_model import Institution
-from backend.app.institution.institution_repository_interface import InstitutionRepositoryInterface
+from app.institution.institution_model import Institution
+from app.institution.institution_repository_interface import InstitutionRepositoryInterface
 
 class CreateInstitution:
 
@@ -10,4 +10,4 @@ class CreateInstitution:
     @staticmethod
     def register_institution(name: str, address: str, cnpj: str, is_public: bool) -> bool:
         institution = Institution(name=name, address=address, cnpj=cnpj, isPublic=is_public)
-        return InstitutionRepositoryInterface.register(institution)
+        return InstitutionRepositoryInterface.register_institution(institution)

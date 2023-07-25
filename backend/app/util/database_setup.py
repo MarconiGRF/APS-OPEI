@@ -2,8 +2,8 @@ import os
 
 from sqlalchemy import create_engine, Engine
 from sqlalchemy.orm import Session
-from backend.app.delegate.delegate_model import Delegate
-from backend.app.institution.institution_model import Institution
+from app.delegate.delegate_model import Delegate
+from app.institution.institution_model import Institution
 
 
 class DatabaseHelper:

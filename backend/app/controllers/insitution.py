@@ -1,7 +1,7 @@
 from flask import Blueprint, request, abort
 
-from backend.app.institution.create_institution import CreateInstitution
-from backend.app.rfb_subsystem.rfb import RFBIntegrationSubsystem
+from app.institution.create_institution import CreateInstitution
+from app.rfb_subsystem.rfb import RFBIntegrationSubsystem
 
 controller = Blueprint('institution_controller', __name__, url_prefix='/institution')
 

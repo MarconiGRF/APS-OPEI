@@ -1,7 +1,7 @@
 from sqlalchemy import select
 
-from backend.app.util.database_setup import DatabaseHelper
-from backend.app.institution.institution_model import Institution
+from app.util.database_setup import DatabaseHelper
+from app.institution.institution_model import Institution
 
 
 class InstitutionRepositoryInterface:
@@ -14,7 +14,7 @@ class InstitutionRepositoryInterface:
         return len(session.scalars(selection).all()) == 1
 
     @staticmethod
-    def register(institution: Institution) -> bool:
+    def register_institution(institution: Institution) -> bool:
         try:
             session = DatabaseHelper.get_session()
             session.add(institution)
