@@ -18,14 +18,13 @@
           maxlength="10"
           v-model="birthdate"
           v-on:input="onBirthdateChange($event.target.value)"
-          placeholder="DD/MM/AAAA"
+          placeholder="DD-MM-AAAA"
         />
       </div>
       <div class="input-container email">
         <label>Email</label>
         <input
           type="text"
-          maxlength="18"
           v-model="email"
           v-on:input="onEmailChange($event.target.value)"
           placeholder="example@email.com"
@@ -34,6 +33,9 @@
       <div class="button-container">
         <input type="submit" value="Registrar" :disabled="isFormInvalid" />
       </div>
+      <span v-if="requestHasFailed || requestHasSucceeded" :class="{'error': requestHasFailed, 'success': requestHasSucceeded}">
+        {{ operationMessage }}
+      </span>
     </form>
   </div>
 </template>
@@ -52,6 +54,9 @@ export default {
       cpf: "",
       birthdate: "",
       email: "",
+      requestHasFailed: false,
+      requestHasSucceeded: false,
+      operationMessage: ""
     };
   },
   props: {},
@@ -79,16 +84,26 @@ export default {
     },
     requestRegisterDelegate() {
       axios
-        .post("http://localhost:3000/register-delegate", {
+        .post("http://localhost:5000/v2023/delegate/", {
           cpf: this.cpf,
           email: this.email,
           birthdate: this.birthdate,
         })
         .then((response) => {
+          this.requestHasFailed = false;
+          this.requestHasSucceeded = true;
+          this.operationMessage = "Success!"
           console.log(response);
         })
         .catch((error) => {
-          console.log(error);
+          this.requestHasFailed = true;
+          this.requestHasSucceeded = false;
+          if (error.response.status === 400) {
+            this.operationMessage = "Delegate already exists"
+          } else {
+            this.operationMessage = "Backend error :("
+          }
+          console.error(error);
         });
     },
   },
@@ -96,6 +111,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.error {
+  margin-top: 10px;
+  padding: 3px 5px;
+  background: red;
+  font-weight: bold;
+  border-radius: 5px;
+  color: white;
+}
+
+.success {
+  margin-top: 10px;
+  padding: 3px 5px;
+  background: green;
+  font-weight: bold;
+  border-radius: 5px;
+  color: white;
+}
+
 .register-delegate {
   display: flex;
   flex-direction: column;

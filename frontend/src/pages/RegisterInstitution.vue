@@ -6,7 +6,7 @@
         <input
           type="text"
           maxlength="18"
-          v-model="cnjp"
+          v-model="cnpj"
           v-on:input="onCnpjChange($event.target.value)"
           placeholder="00.000.000/0000-00"
         />
@@ -14,6 +14,9 @@
       <div class="button-container">
         <input type="submit" value="Registrar" :disabled="isCnpjValid" />
       </div>
+      <span v-if="requestHasFailed || requestHasSucceeded" :class="{'error': requestHasFailed, 'success': requestHasSucceeded}">
+        {{ operationMessage }}
+      </span>
     </form>
   </div>
 </template>
@@ -27,13 +30,16 @@ export default {
   created() {},
   data() {
     return {
-      cnjp: "",
+      cnpj: "",
+      requestHasFailed: false,
+      requestHasSucceeded: false,
+      operationMessage: ""
     };
   },
   props: {},
   computed: {
     isCnpjValid() {
-      const cnpj = new CNPJ(this.cnjp);
+      const cnpj = new CNPJ(this.cnpj);
       return !cnpj.isValid();
     },
   },
@@ -43,17 +49,27 @@ export default {
 
       cnpj.format();
 
-      this.cnjp = cnpj.cnpj;
+      this.cnpj = cnpj.cnpj;
     },
     requestRegisterDelegate() {
       axios
-        .post("http://localhost:3000/register-institution", {
-          cnpj: this.cnjp,
+        .post("http://localhost:5000/v2023/institution/", {
+          cnpj: this.cnpj,
         })
         .then((response) => {
+          this.requestHasFailed = false;
+          this.requestHasSucceeded = true;
+          this.operationMessage = "Success!"
           console.log(response);
         })
         .catch((error) => {
+          this.requestHasFailed = true;
+          this.requestHasSucceeded = false;
+          if (error.response.status === 400) {
+            this.operationMessage = "Institution already exists"
+          } else {
+            this.operationMessage = "Backend error :("
+          }
           console.log(error);
         });
     },
@@ -62,6 +78,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.error {
+  margin-top: 10px;
+  padding: 3px 5px;
+  background: red;
+  font-weight: bold;
+  border-radius: 5px;
+  color: white;
+}
+
+.success {
+  margin-top: 10px;
+  padding: 3px 5px;
+  background: green;
+  font-weight: bold;
+  border-radius: 5px;
+  color: white;
+}
+
 .register-institution {
   display: flex;
   flex-direction: column;

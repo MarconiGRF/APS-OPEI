@@ -17,7 +17,6 @@ import { ref, computed } from "vue";
 import Home from "./pages/Home.vue";
 import RegisterDelegate from "./pages/RegisterDelegate.vue";
 import RegisterInstitution from "./pages/RegisterInstitution.vue";
-import HelloWorld from "./components/HelloWorld.vue";
 import OpeiButton from "./components/OpeiButton.vue";
 
 const routes = {
@@ -40,7 +39,7 @@ window.addEventListener("hashchange", () => {
 });
 
 const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || "/"] || HelloWorld;
+  return routes[currentPath.value.slice(1) || "/"];
 });
 </script>
 
