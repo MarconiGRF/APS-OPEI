@@ -8,5 +8,5 @@ pip install -r requirements.txt
 3. Setup env file by copying `.env.example` to `.env` and setting up its content.
 4. Run
 ```bash
-python3 main.py
+source bin/activate && python3 main.py
 ```
