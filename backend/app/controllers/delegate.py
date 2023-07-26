@@ -15,8 +15,10 @@ def do_create_delegate():
         (not isinstance(request_data['cpf'], str)):
         abort(400)
 
-    cpf = request_data['cpf']
-    birthdate = request_data['birthdate']
+    cpf = request_data['cpf'].replace('-', '').replace('.', '')
+    birthdate = request_data['birthdate'].split('-')
+    birthdate.reverse()
+    birthdate = '-'.join(birthdate)
     exists = CreateDelegate.get_delegate_exists(cpf)
 
     if exists:

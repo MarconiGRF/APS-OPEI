@@ -15,7 +15,7 @@ class RFBIntegrationSubsystem:
             ' ' + data['logradouro'] +
             ', ' + data['numero'] +
             ', cep ' + data['cep'] +
-            ', ' + data['municipio'],
+            ', ' + (data['municipio'] if data['municipio'] else ''),
             False
         )
     
