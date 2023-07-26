@@ -20,7 +20,7 @@ def do_create_delegate():
     exists = CreateDelegate.get_delegate_exists(cpf)
 
     if exists:
-        abort(400)
+        abort(400, "delegate already exists")
     else:
         name = RFBIntegrationSubsystem.get_cpf_exists(cpf, birthdate)
         success = CreateDelegate.register_delegate(name, cpf, birthdate)

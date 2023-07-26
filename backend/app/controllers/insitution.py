@@ -17,7 +17,7 @@ def do_create_institution():
     exists = CreateInstitution.get_institution_exists(cnpj)
 
     if exists:
-        abort(400)
+        abort(400, "institution already exists")
     else:
         (name, address, isPublic) = RFBIntegrationSubsystem.get_cnpj_exists(cnpj)
         success = CreateInstitution.register_institution(name, address, cnpj, isPublic)
