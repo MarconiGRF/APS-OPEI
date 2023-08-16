@@ -8,6 +8,5 @@ class CreateInstitution:
         return InstitutionRepositoryFactory().get_repo().get_institution_exists(cnpj)
 
     @staticmethod
-    def register_institution(name: str, address: str, cnpj: str, is_public: bool) -> bool:
-        institution = Institution(name=name, address=address, cnpj=cnpj, isPublic=is_public)
+    def register_institution(institution: Institution) -> bool:
         return InstitutionRepositoryFactory().get_repo().register_institution(institution)
