@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, request
 
-from app.delegate.create_delegate import CreateDelegate
-from app.rfb_subsystem.rfb import RFBIntegrationSubsystem
+from app.delegate.delegate_model import Delegate
+from app.facades.facade_impl import FacadeImpl
 
 controller = Blueprint('delegate_controller', __name__, url_prefix='/delegate')
 
@@ -10,23 +10,15 @@ controller = Blueprint('delegate_controller', __name__, url_prefix='/delegate')
 def do_create_delegate():
     request_data = request.get_json()
 
-    if ('cpf' not in request_data) or \
-        ('birthdate' not in request_data) or \
-        (not isinstance(request_data['cpf'], str)):
+    if ('delegate' not in request_data) or (not isinstance(request_data['delegate']['birthdate'], str)) or \
+        (not isinstance(request_data['delegate']['cpf'], str)):
         abort(400)
 
-    cpf = request_data['cpf'].replace('-', '').replace('.', '')
-    birthdate = request_data['birthdate'].split('-')
+    cpf = request_data['delegate']['cpf'].replace('-', '').replace('.', '')
+    birthdate = request_data['delegate']['birthdate'].split('-')
     birthdate.reverse()
     birthdate = '-'.join(birthdate)
-    exists = CreateDelegate.get_delegate_exists(cpf)
 
-    if exists:
-        abort(400, "delegate already exists")
-    else:
-        name = RFBIntegrationSubsystem.get_cpf_exists(cpf, birthdate)
-        success = CreateDelegate.register_delegate(name, cpf, birthdate)
-        if success:
-            return "ok"
-
-    return abort(500)
+    delegate = Delegate(cpf=cpf, birthdate=birthdate)
+    result = FacadeImpl.do_create_delegate(delegate)
+    return "true" if result is True else abort(400)

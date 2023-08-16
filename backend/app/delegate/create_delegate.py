@@ -11,8 +11,6 @@ class CreateDelegate:
         return DelegateRepositoryFactory().get_repo().get_delegate_exists(cpf)
 
     @staticmethod
-    def register_delegate(name: str, cpf: str, birthdate_str: str) -> bool:
-        birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
-        delegate = Delegate(name=name, cpf=cpf, birthdate=birthdate)
-        
+    def register_delegate(delegate: Delegate) -> bool:
+        delegate.birthdate = datetime.strptime(delegate.birthdate, "%Y-%m-%d").date()
         return DelegateRepositoryFactory().get_repo().register_delegate(delegate)
