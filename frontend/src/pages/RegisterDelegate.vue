@@ -45,6 +45,7 @@ import axios from "axios";
 import CPF from "../models/cpf.js";
 import Birthdate from "../models/birthdate.js";
 import Email from "../models/email.js";
+import Delegate from "@/models/delegate";
 
 export default {
   name: "RegisterDelegate",
@@ -85,9 +86,7 @@ export default {
     requestRegisterDelegate() {
       axios
         .post("http://localhost:5000/v2023/delegate/", {
-          cpf: this.cpf,
-          email: this.email,
-          birthdate: this.birthdate,
+          delegate: new Delegate(this.cpf, this.email, this.birthdate)
         })
         .then((response) => {
           this.requestHasFailed = false;

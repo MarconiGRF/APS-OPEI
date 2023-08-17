@@ -24,6 +24,7 @@
 <script>
 import axios from "axios";
 import CNPJ from "../models/cnpj.js";
+import Institution from "@/models/institution";
 
 export default {
   name: "RegisterInstitution",
@@ -54,7 +55,7 @@ export default {
     requestRegisterDelegate() {
       axios
         .post("http://localhost:5000/v2023/institution/", {
-          cnpj: this.cnpj,
+            institution: new Institution(this.cnpj)
         })
         .then((response) => {
           this.requestHasFailed = false;
