@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mainapp:
+    build:
+      context: ./main_app
+    ports:
+      - "5000:5000"
+  cnpjservice:
+    build:
+      context: ./cnpj_service
+    ports:
+      - "5001:5000"
+  cpfservice:
+    build:
+      context: ./cpf_service
+    ports:
+      - "5002:5000"
