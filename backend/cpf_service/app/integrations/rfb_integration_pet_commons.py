@@ -9,4 +9,4 @@ class RFBIntegrationPetCommons:
         request = requests.get(f'{os.getenv("CPF_API_ADDR")}/{cpf}?birthdate={birthdate}')
         data = request.json()
 
-        return data['nome']
+        return data

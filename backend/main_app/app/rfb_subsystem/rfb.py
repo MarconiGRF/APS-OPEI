@@ -1,27 +1,27 @@
 import requests
 import os
 
+from app.rfb_subsystem.rfb_integration_interface import RFBIntegrationInterface
 
-class RFBIntegrationSubsystem:
+class RFBIntegrationSubsystem(RFBIntegrationInterface):
 
     @classmethod
     def get_cnpj_exists(cls, cnpj: str):
-        request = requests.get(f'{os.getenv("CNPJ_API_ADDR")}/{cnpj}')
+        params = {'cnpj': cnpj}
+        request = requests.get('http://cnpjservice:5000/rfb-cnpj/institution/', params=params)
         data = request.json()
 
         return (
             data['nome_fantasia'],
-            data['descricao_tipo_de_logradouro'] +
-            ' ' + data['logradouro'] +
-            ', ' + data['numero'] +
-            ', cep ' + data['cep'] +
-            ', ' + (data['municipio'] if data['municipio'] else ''),
-            False
+            data['endereço'],
+            data['publica']
         )
     
     @classmethod
     def get_cpf_exists(cls, cpf: str, birthdate: str):
-        request = requests.get(f'{os.getenv("CPF_API_ADDR")}/{cpf}?birthdate={birthdate}')
+        params = {'cpf': cpf, 'birthdate': birthdate}
+        request = requests.get('http://cpfservice:5000/rfb-cpf/person/', params=params)
+        print(request)
         data = request.json()
 
         return data['nome']

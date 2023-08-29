@@ -15,4 +15,4 @@ def get_person_info():
 
     person_info = integration.get_cpf_exists(cpf, birthdate)
 
-    return person_info if person_info is True else abort(400)
+    return person_info if 'nome' in person_info else abort(400)

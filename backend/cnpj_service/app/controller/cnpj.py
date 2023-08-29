@@ -14,4 +14,4 @@ def get_institution_info():
 
     institution_info = integration.get_cnpj_exists(cnpj)
 
-    return institution_info if institution_info is True else abort(400)
+    return institution_info if 'nome_fantasia' in institution_info else abort(400)
