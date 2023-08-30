@@ -2,7 +2,7 @@ import os
 
 from sqlalchemy import create_engine, Engine
 
-from app.institution.institution_model import Institution
+from app.models.institution_model import Institution
 from app.institution.mysql_institution_repository import MySQLInstitutionRepository
 from app.institution.sqlite_institution_repository import SQLiteInstitutionRepository
 from app.repositories.institution_repository_interface import InstitutionRepositoryInterface

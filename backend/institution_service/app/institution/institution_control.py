@@ -1,5 +1,5 @@
 from app.institution.create_institution import CreateInstitution
-from app.institution.institution_model import Institution
+from app.models.institution_model import Institution
 from app.rfb_subsystem.rfb import RFBIntegrationSubsystem
 
 
@@ -20,3 +20,16 @@ class InstitutionControl:
             if success:
                 return True
             pass
+
+    @staticmethod
+    def do_edit_institution_name(institution: Institution) -> bool:
+        exists = CreateInstitution.get_institution_exists(institution.cnpj)
+
+        if exists:
+            success = CreateInstitution.edit_institution_name(institution)
+            if success:
+                return True
+            pass
+        else:
+            return False
+            

@@ -1,4 +1,4 @@
-from app.institution.institution_model import Institution
+from app.models.institution_model import Institution
 from app.repositories.institution_repository_interface import InstitutionRepositoryInterface
 
 
@@ -12,6 +12,9 @@ class MySQLInstitutionRepository(InstitutionRepositoryInterface):
         pass
 
     def register_institution(self, institution: Institution) -> bool:
+        pass
+
+    def edit_institution_name(self, institution: Institution) -> bool:
         pass
 
     def check_host_schemas(self):

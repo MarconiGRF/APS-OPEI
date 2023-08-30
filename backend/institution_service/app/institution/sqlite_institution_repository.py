@@ -3,7 +3,7 @@ import os
 from sqlalchemy import select, create_engine, Engine
 from sqlalchemy.orm import Session
 
-from app.institution.institution_model import Institution
+from app.models.institution_model import Institution
 from app.repositories.institution_repository_interface import InstitutionRepositoryInterface
 
 
@@ -29,7 +29,19 @@ class SQLiteInstitutionRepository(InstitutionRepositoryInterface):
             return False
 
         return True
+    
+    def edit_institution_name(self, institution: Institution) -> bool:
+        try:
+            session = self.get_session()
+            institution_to_update = session.query(Institution).filter_by(cnpj=institution.cnpj).first()
+            institution_to_update.name = institution.name
+            session.commit()
+            session.close()
+        except:
+            return False
 
+        return True
+    
     def check_db_file(self) -> None:
         if not os.path.exists(self.__db_path):
             open(self.__db_path, "x")

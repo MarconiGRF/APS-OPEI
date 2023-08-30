@@ -1,4 +1,4 @@
-from app.institution.institution_model import Institution
+from app.models.institution_model import Institution
 from app.factories.institution_repository_factory import InstitutionRepositoryFactory
 
 class CreateInstitution:
@@ -10,3 +10,7 @@ class CreateInstitution:
     @staticmethod
     def register_institution(institution: Institution) -> bool:
         return InstitutionRepositoryFactory().get_repo().register_institution(institution)
+    
+    @staticmethod
+    def edit_institution_name(institution: Institution) -> bool:
+        return InstitutionRepositoryFactory().get_repo().edit_institution_name(institution)

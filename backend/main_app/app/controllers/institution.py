@@ -1,7 +1,6 @@
 from flask import Blueprint, request, abort
 
-from app.facades.facade_impl import FacadeImpl
-from app.institution.institution_model import Institution
+from app.institution.institution_service_integration import InstitutionServiceIntegration
 
 controller = Blueprint('institution_controller', __name__, url_prefix='/institution')
 
@@ -9,10 +8,14 @@ controller = Blueprint('institution_controller', __name__, url_prefix='/institut
 @controller.route('/', methods=['POST'])
 def do_create_institution():
     request_data = request.get_json()
+    
+    result = InstitutionServiceIntegration.do_create_institution(request_data=request_data)
+    return "true" if result is True else abort(400)
 
-    if ('institution' not in request_data) or (not isinstance(request_data['institution']['cnpj'], str)):
-        abort(400)
 
-    institution = Institution(cnpj=request_data['institution']['cnpj'])
-    result = FacadeImpl.do_create_institution(institution)
+@controller.route('/update-name', methods=['PATCH'])
+def do_edit_institution_name():
+    request_data = request.get_json()
+
+    result = InstitutionServiceIntegration.do_edit_institution_name(request_data=request_data)
     return "true" if result is True else abort(400)
