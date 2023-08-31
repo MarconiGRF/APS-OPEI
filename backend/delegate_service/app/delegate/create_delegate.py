@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 from app.factories.delegate_repository_factory import DelegateRepositoryFactory
 
 

@@ -1,4 +1,4 @@
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 from app.repositories.delegate_repository_interface import DelegateRepositoryInterface
 
 

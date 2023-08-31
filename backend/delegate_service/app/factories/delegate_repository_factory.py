@@ -2,7 +2,7 @@ import os
 
 from sqlalchemy import create_engine, Engine
 
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 from app.delegate.mysql_delegate_repository import MySQLDelegateRepository
 from app.delegate.sqlite_delegate_repository import SQLiteDelegateRepository
 from app.repositories.delegate_repository_interface import DelegateRepositoryInterface
