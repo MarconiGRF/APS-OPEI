@@ -1,7 +1,7 @@
 from sqlalchemy import Engine
 from sqlalchemy.orm import Session
 
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 
 
 class DelegateRepositoryInterface:

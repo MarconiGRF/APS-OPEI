@@ -1,6 +1,6 @@
 from app.facades.facade_interface import FacadeInterface
 from app.delegate.delegate_control import DelegateControl
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 
 class FacadeImpl(FacadeInterface):
 

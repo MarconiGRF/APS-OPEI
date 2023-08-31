@@ -1,5 +1,5 @@
 from app.delegate.create_delegate import CreateDelegate
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 from app.rfb_subsystem.rfb import RFBIntegrationSubsystem
 
 

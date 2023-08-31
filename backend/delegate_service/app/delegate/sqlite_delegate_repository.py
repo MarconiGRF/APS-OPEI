@@ -3,7 +3,7 @@ import os
 from sqlalchemy import select, create_engine, Engine
 from sqlalchemy.orm import Session
 
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 from app.repositories.delegate_repository_interface import DelegateRepositoryInterface
 
 

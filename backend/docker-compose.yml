@@ -1,8 +1,8 @@
 version: '3'
 services:
-  mainapp:
+  gateway:
     build:
-      context: ./main_app
+      context: ./gateway
     ports:
       - "5000:5000"
   cnpjservice:
@@ -20,3 +20,8 @@ services:
       context: ./institution_service
     ports:
       - "5003:5000"
+  delegateservice:
+    build:
+      context: ./delegate_service
+    ports:
+      - "5004:5000"

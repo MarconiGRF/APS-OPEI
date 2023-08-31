@@ -1,12 +1,12 @@
 from flask import Blueprint, abort, request
 
-from app.delegate.delegate_model import Delegate
+from app.models.delegate_model import Delegate
 from app.facades.facade_impl import FacadeImpl
 
-controller = Blueprint('delegate_controller', __name__, url_prefix='/delegate')
+controller = Blueprint('delegate_controller', __name__)
 
 
-@controller.route('/', methods=['POST'])
+@controller.route('/create', methods=['POST'])
 def do_create_delegate():
     request_data = request.get_json()
 
